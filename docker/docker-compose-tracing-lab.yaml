@@ -11,12 +11,16 @@ services:
     build: ../authorization-server/
     ports:
       - "127.0.0.1:9091:9091"
+    environment:
+      ZIPKIN_API_ENDPOINT: http://zipkin:9411/api/v2/spans
   resource:
     image: tracing/resource-server
     container_name: resource-server
     build: ../resource-server/
     ports:
       - "127.0.0.1:9095:9095"
+    environment:
+      ZIPKIN_API_ENDPOINT: http://zipkin:9411/api/v2/spans
   client:
     image: tracing/client-application
     container_name: client-application
@@ -25,3 +29,4 @@ services:
       - "127.0.0.1:9090:9090"
     environment:
       RESOURCE_SERVER_URL: http://resource-server:9095
+      ZIPKIN_API_ENDPOINT: http://zipkin:9411/api/v2/spans

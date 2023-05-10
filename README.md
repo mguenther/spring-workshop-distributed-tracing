@@ -55,6 +55,14 @@ To start the lab services with resource server, client and authorization server 
 $ docker-compose -f docker-compose-tracing-lab.yaml up
 ```
 
+Both of these docker-compose scripts also include a Zipkin-Slim Server to aggregate and display the traces. 
+Zipkin will be exposed on http://localhost:9411 - Zipkin will use the In-Memory storage, so after a restart all traces will be gone.
+
+There is also a Zipkin standalone docker-compose if you want to test your services without starting them via docker.
+```bash
+$ docker-compose -f docker-compose-zipkin-standalone.yaml up
+
+```
 
 Please make sure that the services you started launch correctly and respond with their public API.
 
