@@ -1,0 +1,15 @@
+spring.application.name: Micrometer Tracing
+logging.pattern.level: "%5p [${spring.zipkin.service.name:${spring.application.name:}},%X{traceId:-},%X{spanId:-}]"
+
+server:
+  port: 9098
+
+management:
+  tracing:
+    propagation:
+      type: b3
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_API_ENDPOINT:http://127.0.0.1:9411/api/v2/spans}

@@ -1,0 +1,27 @@
+version: '2.2'
+services:
+  zipkin:
+    image: openzipkin/zipkin-slim:2.24.1
+    container_name: zipkin-server
+    ports:
+      - "127.0.0.1:9411:9411"
+  authorization:
+    image: tracing/authorization-server
+    container_name: authorization-server
+    build: ../authorization-server/
+    ports:
+      - "127.0.0.1:9091:9091"
+  resource:
+    image: tracing/resource-server
+    container_name: resource-server
+    build: ../resource-server/
+    ports:
+      - "127.0.0.1:9095:9095"
+  client:
+    image: tracing/client-application
+    container_name: client-application
+    build: ../client-application/
+    ports:
+      - "127.0.0.1:9090:9090"
+    environment:
+      RESOURCE_SERVER_URL: http://resource-server:9095

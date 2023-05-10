@@ -1,0 +1,16 @@
+spring.application.name: Sleuth Legacy Tracing
+
+server:
+  port: 9099
+
+client:
+  micrometerUrl: ${MICROMETER_URL:http://localhost:9098}
+  user: user
+  password: user
+
+spring:
+  zipkin:
+    base-url: ${ZIPKIN_API_ENDPOINT:http://127.0.0.1:9411/}
+  sleuth:
+    sampler:
+      probability: 1.0

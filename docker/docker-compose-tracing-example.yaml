@@ -1,0 +1,22 @@
+version: '2.2'
+services:
+  zipkin:
+    image: openzipkin/zipkin-slim:2.24.1
+    container_name: zipkin-server
+    ports:
+      - "127.0.0.1:9411:9411"
+  micrometer:
+    image: tracing/micrometer-tracing
+    container_name: micrometer
+    build: ../micrometer-tracing/
+    ports:
+      - "127.0.0.1:9098:9098"
+    environment:
+      ZIPKIN_API_ENDPOINT: http://zipkin:9411/api/v2/spans
+  sleuth:
+    image: tracing/sleuth-legacy-tracing
+    container_name: sleuth
+    build: ../sleuth-legacy-tracing/
+    environment:
+      ZIPKIN_API_ENDPOINT: http://zipkin:9411/
+      MICROMETER_URL: http://micrometer:9098/

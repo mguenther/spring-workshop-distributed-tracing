@@ -1,0 +1,7 @@
+version: '2.2'
+services:
+  zipkin:
+    image: openzipkin/zipkin-slim:2.24.1
+    container_name: zipkin-server
+    ports:
+      - "127.0.0.1:9411:9411"
