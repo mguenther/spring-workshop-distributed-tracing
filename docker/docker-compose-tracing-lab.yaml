@@ -29,4 +29,5 @@ services:
       - "127.0.0.1:9090:9090"
     environment:
       RESOURCE_SERVER_URL: http://resource-server:9095
+      TOKEN_URL: http://authorization-server:9091/oauth2/token
       ZIPKIN_API_ENDPOINT: http://zipkin:9411/api/v2/spans

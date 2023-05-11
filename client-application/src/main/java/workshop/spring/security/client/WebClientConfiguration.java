@@ -16,9 +16,10 @@ public class WebClientConfiguration {
     }
 
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate restTemplate(TokenInterceptor tokenInterceptor) {
         return new RestTemplateBuilder()
                 .uriTemplateHandler(new DefaultUriBuilderFactory(config.getResourceUrl()))
+                .additionalInterceptors(tokenInterceptor)
                 .build();
     }
 }

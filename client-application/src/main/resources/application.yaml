@@ -6,8 +6,27 @@ logging:
 
 client:
   resourceUrl: ${RESOURCE_SERVER_URL:http://localhost:9095}
+  tokenUrl: ${TOKEN_URL:http://localhost:9091/oauth2/token}
 
 spring:
   thymeleaf:
     prefix: classpath:/views/
     suffix: .html
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: http://localhost:9090/login/oauth2/code/google
+            client-id: 735658187058-2uo7evmpainngptpc46i77j2g93t2jt5.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+          github:
+            redirect-uri: http://localhost:9090/login/oauth2/code/github
+            client-id: 64a091a8edc54ea11a0d
+            client-secret: a37d47562d152b400bfe7cfd0bf9a742a2c4cea7
+            scope:
+              - user:email
+              - read:user

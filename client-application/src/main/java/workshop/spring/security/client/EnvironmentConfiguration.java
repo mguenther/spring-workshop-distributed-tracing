@@ -9,11 +9,21 @@ public class EnvironmentConfiguration {
 
     private String resourceUrl;
 
+    private String tokenUrl;
+
     public String getResourceUrl() {
         return resourceUrl;
     }
 
     public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
+    }
+
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+
+    public void setTokenUrl(String tokenUrl) {
+        this.tokenUrl = tokenUrl;
     }
 }
