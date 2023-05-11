@@ -14,8 +14,6 @@ import java.io.IOException;
 @Component
 public class TokenInterceptor implements ClientHttpRequestInterceptor {
 
-    private String token;
-
     private final EnvironmentConfiguration config;
 
     public TokenInterceptor(EnvironmentConfiguration config) {
@@ -24,16 +22,8 @@ public class TokenInterceptor implements ClientHttpRequestInterceptor {
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        request.getHeaders().add("Authorization", "Bearer " + getToken());
+        request.getHeaders().add("Authorization", "Bearer " + retrieveToken());
         return execution.execute(request, body);
-    }
-
-    private String getToken() {
-        if ( token == null ) {
-            token = retrieveToken();
-        }
-
-        return token;
     }
 
     private String retrieveToken() {
