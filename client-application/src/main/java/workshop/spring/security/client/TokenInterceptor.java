@@ -2,6 +2,7 @@ package workshop.spring.security.client;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micrometer.observation.ObservationRegistry;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -16,8 +17,11 @@ public class TokenInterceptor implements ClientHttpRequestInterceptor {
 
     private final EnvironmentConfiguration config;
 
-    public TokenInterceptor(EnvironmentConfiguration config) {
+    private final ObservationRegistry registry;
+
+    public TokenInterceptor(EnvironmentConfiguration config, ObservationRegistry registry) {
         this.config = config;
+        this.registry = registry;
     }
 
     @Override
@@ -28,6 +32,7 @@ public class TokenInterceptor implements ClientHttpRequestInterceptor {
 
     private String retrieveToken() {
         var restTemplate = new RestTemplate();
+        restTemplate.setObservationRegistry(registry);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 

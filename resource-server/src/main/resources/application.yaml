@@ -1,4 +1,4 @@
-spring.application.name: Resource Server
+spring.application.name: resource-server
 logging.pattern.level: "%5p [${spring.zipkin.service.name:${spring.application.name:}},%X{traceId:-},%X{spanId:-}]"
 
 server:
