@@ -1,3 +1,7 @@
+spring.application.name: Client-Application
+logging.pattern.level: "%5p [${spring.zipkin.service.name:${spring.application.name:}},%X{traceId:-},%X{spanId:-}]"
+
+
 server:
   port: 9090
 logging:
@@ -7,6 +11,14 @@ logging:
 client:
   resourceUrl: ${RESOURCE_SERVER_URL:http://localhost:9095}
   tokenUrl: ${TOKEN_URL:http://localhost:9091/oauth2/token}
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_API_ENDPOINT:http://127.0.0.1:9411/api/v2/spans}
 
 spring:
   thymeleaf:

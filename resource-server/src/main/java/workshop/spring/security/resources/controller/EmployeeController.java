@@ -16,6 +16,7 @@ import workshop.spring.security.resources.data.*;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.databind.MapperFeature.DEFAULT_VIEW_INCLUSION;
@@ -40,7 +41,8 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EmployeeDto> getEmployees(Authentication authentication) {
+    public List<EmployeeDto> getEmployees(Authentication authentication,
+              @RequestHeader Map<String, String> headers) {
         return repo.findAll()
                 .stream()
                 .map(employee -> employeeToRoleBasedView(employee, authentication))

@@ -7,10 +7,12 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping("/user")
@@ -21,7 +23,8 @@ public class UserInfoController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @PostAuthorize("returnObject.name.equals('user')")
-    UserPermission helloUser(Authentication authentication) {
+    UserPermission helloUser(Authentication authentication,
+                             @RequestHeader Map<String, String> headers) {
         log.info("Returning user object for user '{}'", authentication.getName());
         final var authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         return new UserPermission(authentication.getName(), authorities);
